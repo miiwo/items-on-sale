@@ -36,7 +36,7 @@ public class MyRecommendationService implements IRecommendationService {
         Set<Item> recommendationList = itemDao.getItemsByCategory(userFavoriteCategory);
 
         // Remove any items they already have bought.
-        //recommendationList.removeIf(item -> item.id in userOrders.id)
+        recommendationList.removeIf(item -> userOrders.contains(item));
         // Filter the items by date, take items that have recently come into sale. (2 weeks)
         //recommendationList.removeIf(item -> item.dateAdded - Current.Date < 2 weeks);
 

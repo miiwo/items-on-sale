@@ -39,6 +39,7 @@ public class ItemsOnSaleController {
         try {
             recommendations = rs.getRecommendations(userId);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something Happened");
         }
         
