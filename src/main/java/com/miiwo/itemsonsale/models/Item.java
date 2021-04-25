@@ -1,12 +1,10 @@
 package com.miiwo.itemsonsale.models;
 
-public class Items {
-    private int id;
+public class Item {
     private String name;
     private double price;
 
-    public Items(int id, String name, double price) {
-        this.id = id;
+    public Item(String name, double price) {
         this.name = name;
         this.price = price;
     }
