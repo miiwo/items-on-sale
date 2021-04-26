@@ -14,7 +14,7 @@ CREATE TABLE Products (
     id int AUTO_INCREMENT,
     name VARCHAR(250) NOT NULL,
     price decimal NOT NULL,
-    category VARCHAR(128),
+    category VARCHAR(128) NOT NULL,
     PRIMARY KEY (id)
 );
 

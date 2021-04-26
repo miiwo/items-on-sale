@@ -10,7 +10,7 @@ INSERT INTO Products(name, price, category) VALUES
 ('Bluetooth Speaker', 30.2, 'Electronics');
 
 INSERT INTO Orders(product_id, user_id) VALUES
-(2, 1);
+(1, 1);
 
 INSERT INTO SaleItems(product_id) VALUES
 (1),
