@@ -28,10 +28,17 @@ public class ItemsOnSaleController {
         this.rs = rs;
     }
     
+    /**
+     * Gets the reccomendation list for a user by their id.
+     * @param domain
+     * @param userCreds
+     * @param userId the user id
+     * @return
+     */
     @GetMapping("/recommendations/{userId}")
     public ResponseEntity<Set<Item>> getRecommendedList(@RequestHeader("referer") String domain, 
                                                             @RequestHeader("authorization") Object userCreds,
-                                                            @PathVariable String userId) {
+                                                            @PathVariable int userId) {
 
         // Retrieve user's reccomended list
         Set<Item> recommendations = Set.of();
@@ -40,7 +47,7 @@ public class ItemsOnSaleController {
             recommendations = rs.getRecommendations(userId);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something Happened");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something happened on our end oops.");
         }
         
         return ResponseEntity.ok(recommendations);

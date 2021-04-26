@@ -25,18 +25,20 @@ public class MyRecommendationService implements IRecommendationService {
      * Returns recommendations to user based on their past orders, and other users' purchases.
      */
     @Override
-    public Set<Item> getRecommendations(String user) {
+    public Set<Item> getRecommendations(int userId) {
         // Get all users orders
-        Set<Item> userOrders = itemDao.findOrdersFrom(user);
+        Set<Item> userOrders = itemDao.findOrdersFrom(userId);
 
         // Find out what category does user buy the most from
         String userFavoriteCategory = findPopularCategory(userOrders);
 
         // Show user items from their favorite category that are on sale.
         Set<Item> recommendationList = itemDao.getItemsByCategory(userFavoriteCategory);
+        System.out.println(recommendationList);
 
         // Remove any items they already have bought.
         recommendationList.removeIf(item -> userOrders.contains(item));
+        System.out.println(recommendationList);
         // Filter the items by date, take items that have recently come into sale. (2 weeks)
         //recommendationList.removeIf(item -> item.dateAdded - Current.Date < 2 weeks);
 
@@ -51,7 +53,7 @@ public class MyRecommendationService implements IRecommendationService {
      * @return
      */
     private String findPopularCategory(Set<Item> list) {
-        return "";
+        return "Electronics";
     }
     
 }

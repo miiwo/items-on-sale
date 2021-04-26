@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IItemDAO {
-    public Set<Item> findOrdersFrom(String user);
+    public Set<Item> findOrdersFrom(int userId);
     public Set<Item> getItemsByCategory(String category);
 }

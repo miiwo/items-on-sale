@@ -13,21 +13,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ItemDAO implements IItemDAO {
 
-    //private final String orderQuery = "SELECT UNIQUE(*) FROM Orders o LEFT JOIN (SELECT * FROM Products a JOIN SaleItems b ON a.id = b.product_id) p ON o.product_id = p.id WHERE o.user_id = ?";
-    //private final String categoryQuery = "SELECT UNIQUE(*) FROM Products WHERE category = category";
-    //private final String testOrderQuery = "SELECT * FROM Orders";
-    private final String testCategoryQuery = "SELECT * FROM Products";
+    private final String orderQuery = "SELECT * FROM Products WHERE id IN (SELECT product_id FROM Orders WHERE user_id = ?)";
+    private final String categoryQuery = "SELECT * FROM Products WHERE category = ?";
     
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public Set<Item> findOrdersFrom(String user) {
-        Set<Item> orders = jdbcTemplate.query(testCategoryQuery, new ItemMapper()).stream().collect(Collectors.toSet());
+    public Set<Item> findOrdersFrom(int userId) {
+        // Surround these queries with try/catch
+        Set<Item> orders = jdbcTemplate.query(orderQuery, new ItemMapper(), userId).stream().collect(Collectors.toSet());
         return orders;
     }
 
     public Set<Item> getItemsByCategory(String category) {
-        Set<Item> items = jdbcTemplate.query(testCategoryQuery, new ItemMapper()).stream().collect(Collectors.toSet());
+        Set<Item> items = jdbcTemplate.query(categoryQuery, new ItemMapper(), category).stream().collect(Collectors.toSet());
         return items;
     }
 }
