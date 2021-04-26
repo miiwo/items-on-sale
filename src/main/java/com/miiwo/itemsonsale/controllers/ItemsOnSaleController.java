@@ -32,11 +32,11 @@ public class ItemsOnSaleController {
     }
     
     /**
-     * Gets the reccomendation list for a user by their id.
+     * Gets the reccomendation list for a user by specified id.
      * @param domain
      * @param userCreds
      * @param userId the user id
-     * @return
+     * @return a response whether the request can be fulfilled and appropriate body
      */
     @GetMapping("/recommendations/{userId}")
     public ResponseEntity<Set<Item>> getRecommendedList(@RequestHeader("origin") String domain, 
@@ -47,6 +47,7 @@ public class ItemsOnSaleController {
         if (!domain.equals("shopping.rbc.com")) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Can't access the microservice like that, sorry.");
         }
+        
 
         // Ensure users only have access to their own recommendation list.
         boolean validCreds = false;

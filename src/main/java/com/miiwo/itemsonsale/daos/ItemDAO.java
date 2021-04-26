@@ -11,6 +11,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Concrete Implementation of an IItemDAO. 
+ */
 @Repository
 public class ItemDAO implements IItemDAO {
 

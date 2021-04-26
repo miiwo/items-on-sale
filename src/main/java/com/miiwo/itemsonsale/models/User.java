@@ -1,5 +1,8 @@
 package com.miiwo.itemsonsale.models;
 
+/**
+ * Model class to represent a User used for authentication.
+ */
 public class User {
     private String username;
     private String password;

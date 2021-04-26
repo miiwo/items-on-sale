@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Service layer that provides business logic to the controller. This layer should not have database queries in it.
- * This class focuses on providing recommendations by what the user has already bought, and any new items that come
- * into the shop.
+ * MyRecommendationService class provides recommendations based on what the user has already bought.
  */
 @Service
 public class MyRecommendationService implements IRecommendationService {
@@ -23,7 +21,7 @@ public class MyRecommendationService implements IRecommendationService {
     private IItemDAO itemDao;
 
     /**
-     * Returns recommendations to user based on their past orders, and other users' purchases.
+     * Returns recommendations for a specific user based on their past orders.
      * 
      * @param userId user's id
      * @return recommendations list
@@ -49,8 +47,8 @@ public class MyRecommendationService implements IRecommendationService {
     /**
      * Helper method to find the most popular category from a set of Items.
      * 
-     * @param list list to find
-     * @return the most popular category
+     * @param list list to search for the most popular category
+     * @return a string denoting the most popular category
      */
     private String findPopularCategory(Set<Item> list) {
         Map<String, Integer> popularHash = new HashMap<String, Integer>();

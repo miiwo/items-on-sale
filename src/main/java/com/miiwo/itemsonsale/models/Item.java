@@ -1,5 +1,8 @@
 package com.miiwo.itemsonsale.models;
 
+/**
+ * Model class to represent the items that can be sold.
+ */
 public class Item {
     private String name;
     private double price;

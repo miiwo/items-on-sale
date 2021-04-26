@@ -6,6 +6,9 @@ import com.miiwo.itemsonsale.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * My implementation of authorization.
+ */
 @Service
 public class MyAuthorizationService implements IAuthorizationService {
 
