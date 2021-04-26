@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS SaleItems;
 
 CREATE TABLE Users (
     id int AUTO_INCREMENT,
-    username VARCHAR(250) NOT NULL,
+    username VARCHAR(250) UNIQUE NOT NULL,
     pass VARCHAR(250) NOT NULL,
     PRIMARY KEY (id)
 );

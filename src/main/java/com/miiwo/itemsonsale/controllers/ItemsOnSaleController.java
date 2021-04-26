@@ -3,6 +3,7 @@ package com.miiwo.itemsonsale.controllers;
 import java.util.Set;
 
 import com.miiwo.itemsonsale.models.Item;
+import com.miiwo.itemsonsale.services.IAuthorizationService;
 import com.miiwo.itemsonsale.services.IRecommendationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,12 @@ import org.springframework.web.server.ResponseStatusException;
 public class ItemsOnSaleController {
 
     private IRecommendationService rs;
+    private IAuthorizationService as;
 
     @Autowired
-    public ItemsOnSaleController(IRecommendationService rs) {
+    public ItemsOnSaleController(IRecommendationService rs, IAuthorizationService as) {
         this.rs = rs;
+        this.as = as;
     }
     
     /**
@@ -36,9 +39,31 @@ public class ItemsOnSaleController {
      * @return
      */
     @GetMapping("/recommendations/{userId}")
-    public ResponseEntity<Set<Item>> getRecommendedList(@RequestHeader("referer") String domain, 
-                                                            @RequestHeader("authorization") Object userCreds,
+    public ResponseEntity<Set<Item>> getRecommendedList(@RequestHeader("origin") String domain, 
+                                                            @RequestHeader("authorization") String userCreds,
                                                             @PathVariable int userId) {
+
+        // Ensure calls come from certain website domain
+        if (!domain.equals("shopping.rbc.com")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Can't access the microservice like that, sorry.");
+        }
+
+        // Ensure users only have access to their own recommendation list.
+        boolean validCreds = false;
+        try {
+            String[] credArray = userCreds.split(":"); // Assumed credentials coming as "username:password"
+            validCreds = as.isValidCredentials(userId, credArray[0], credArray[1]);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something happened on our end oops.");
+
+        } finally {
+            if (!validCreds) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Can't access that resource, sorry");
+            }
+        }
+        
 
         // Retrieve user's reccomended list
         Set<Item> recommendations = Set.of();

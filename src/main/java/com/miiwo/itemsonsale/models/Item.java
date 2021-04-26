@@ -25,6 +25,11 @@ public class Item {
 
     @Override
     public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
+        }
+        
         if (!(o instanceof Item)) {
             return false;
         }

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
- * Mapper class from database to an entity/object to be used in the application.
+ * Mapper class for the Item object.
  */
 public class ItemMapper implements RowMapper<Item> {
 
